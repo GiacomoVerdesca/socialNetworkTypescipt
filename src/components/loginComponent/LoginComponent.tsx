@@ -7,16 +7,20 @@ import "./LoginComponent.css";
 import { CallApi } from "../../service/callApi";
 import { RegisterComponent } from "../registerComponent/RegisterComponent";
 import "regenerator-runtime/runtime";
+import {RootObjectUser, User} from '../../interface/interface'
 
 export const LoginComponent = () => {
   //dispatch per le azioni degli stati globali
   const dispatch = useDispatch();
   //stato globale di essere connesso
-  const logged = useSelector((state) => state.loggedReducer);
+  const loggedSelector = (state: any) => state.loggedReducer;
+  const logged: Boolean = useSelector(loggedSelector);
   //stato globale di tutti gli user
-  const allUsers = useSelector((state) => state.allUsersReducer);
+  const allUsersSelector = (state: any) => state.allUsersReducer;
+  const allUsers :RootObjectUser= useSelector(allUsersSelector);
   //stato globale dell' user cercato da allUsers
-  const singleUser = useSelector((state) => state.singleUserReducer);
+  const singleUserSelector = (state: any) => state.singleUserReducer;
+  const singleUser :RootObjectUser= useSelector(singleUserSelector);
 
   //stato locale dati che inserisco dal form
   const [userLogin, setUserLogin] = useState({
@@ -41,7 +45,7 @@ export const LoginComponent = () => {
     dispatch(getAllUsers());
   }, []);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event:any) => {
     event.preventDefault();
     if (
       singleUser["user"].email === userLogin.email &&
@@ -54,8 +58,8 @@ export const LoginComponent = () => {
     }
     await service
       .getUser(userLogin.email)
-      .then((response) => response.json())
-      .then((data) => {
+      .then((response:any) => response.json())
+      .then((data:[User]) => {
         let tokenApi = data[0].token;
         if (tokenApi === Token) {
           dispatch(login());
@@ -69,7 +73,7 @@ export const LoginComponent = () => {
       });
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event:any) => {
     setUserLogin((preUserLogin) => ({
       ...preUserLogin,
       [event.target.name]: event.target.value,
@@ -105,8 +109,8 @@ export const LoginComponent = () => {
     setTimeout(() => {
       service
         .getUser(singleUser["user"].email)
-        .then((response) => response.json())
-        .then((data) => {
+        .then((response:any) => response.json())
+        .then((data:[User]) => {
           let refreshtokenapi = data[0].token;
           if (refreshtokenapi !== Token) {
             dispatch(logout());

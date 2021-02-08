@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import "./PostComponent.css";
 import { CallApi } from "../../service/callApi";
+import { Post, RootObjectUser, User } from "../../interface/interface";
 
 export const PostComponent = () => {
   let service = CallApi.getInstance();
   const [post, setPost] = useState([]);
+const allUsersSelector  = (state:any) => state.allUsersReducer
+  const allUsers : any = useSelector(allUsersSelector);
 
-  const allUsers = useSelector((state) => state.allUsersReducer);
-
-  let allId = allUsers['users'].map(item => { return item.id });
+  let allId :String = allUsers['users'].map((item :User) => { return item.id });
   //stato globale user
   // useEffect(() => {
   //   let postData = [];
@@ -32,7 +33,7 @@ export const PostComponent = () => {
   return (
     <div className="mt-5 mb-5">
       {post &&
-        post.map((item) => {
+        post.map((item:Post) => {
           return (
             <div key={item.id} className=" container mt-3 ">
               <div className=" row justify-content-md-center  ">
@@ -45,14 +46,14 @@ export const PostComponent = () => {
                     Nulla eu malesuada sapien. Vestibulum eget est quis metus
                     luctus dignissim sit amet vitae eros.
                   </figcaption>
-                  <div className="d-flex pl-2 justify-content-md-center mb-2">
+                  {/* <div className="d-flex pl-2 justify-content-md-center mb-2">
                     <i className="fa fa-heart like ">{item.like}</i>
                     {item.comment && (
                       <i className="fa fa-comment pl-2 comment">
                         {item.comment.lenght}
                       </i>
                     )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

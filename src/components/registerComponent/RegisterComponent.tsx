@@ -13,12 +13,12 @@ export const RegisterComponent = () => {
     password: "",
   });
 
-  const showModal = (event) => {
+  const showModal = (event:any) => {
     event.preventDefault();
     viewModal ? setViewModal(false) : setViewModal(true);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event:any) => {
     event.preventDefault();
     service.postUser(register) ;
     setViewModal(false);
@@ -27,7 +27,7 @@ export const RegisterComponent = () => {
     
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event:any) => {
     event.preventDefault();
     setRegister((prev) => ({
       ...prev,

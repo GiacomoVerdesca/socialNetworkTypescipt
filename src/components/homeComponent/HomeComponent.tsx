@@ -5,7 +5,9 @@ import { PostComponent } from "../postComponent/PostComponent";
 import { NavbarComponent } from "../../core/navBar/NavbarComponent";
 
 export const HomeComponent = () => {
-  const logged = useSelector((state) => state.loggedReducer);
+  
+  const loggedSelector  = (state: any) => state.loggedReducer;
+  const logged: Boolean= useSelector(loggedSelector);
   
   return (
     <div>

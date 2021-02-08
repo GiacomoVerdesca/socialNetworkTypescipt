@@ -1,10 +1,11 @@
 import axios from "axios";
 import "regenerator-runtime/runtime";
+import { User } from "../interface/interface";
 import { myFetchGet, myFetchPost, myFetchPut } from './myFetch';
 
 
 
-var instance = null;
+var instance:any = null;
 export class CallApi {
   static getInstance() {
     if (instance === null) {
@@ -13,13 +14,13 @@ export class CallApi {
     return instance;
   }
 
-  static setInstance(_instance) {
+  static setInstance(_instance:any) {
     instance = _instance;
   }
 
 
   //Get User Api
-  getUser = (email) => {
+  getUser = (email:String) => {
     return myFetchGet('https://60181603971d850017a3f861.mockapi.io/users/?email=' + email)
   }
 
@@ -36,7 +37,7 @@ export class CallApi {
   //   return myFetchPut('https://60181603971d850017a3f861.mockapi.io/users/' + id,token)
   // }
 
-  putUserLogin = async (id, token) => {
+  putUserLogin = async (id:String, token:String) => {
     return await fetch('https://60181603971d850017a3f861.mockapi.io/users/' + id, {
       method: 'PUT',
       headers: {
@@ -62,7 +63,7 @@ export class CallApi {
   // }
 
 
-  postUser = async (datavalue) => {
+  postUser = async (datavalue:User) => {
     return await fetch('https://60181603971d850017a3f861.mockapi.io/users/', {
       method: "POST",
       headers: {
@@ -71,7 +72,7 @@ export class CallApi {
       body: JSON.stringify({
         name: datavalue.name,
         surname: datavalue.surname,
-        avatar: datavalue.data,
+        avatar: datavalue.avatar,
         username: datavalue.username,
         email: datavalue.email,
         password: datavalue.password,
@@ -80,7 +81,7 @@ export class CallApi {
   }
 
   //GetPost
-  getPostsSingleUser = (iduser) => {
+  getPostsSingleUser = (iduser:Number) => {
     return myFetchGet("https://60181603971d850017a3f861.mockapi.io/users/" + iduser + "/posts")
   };
 }

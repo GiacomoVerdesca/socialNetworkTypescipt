@@ -1,7 +1,7 @@
 const initialState = {
     users: []
 };
-export const allUsersReducer = (state = initialState, action) => {
+export const allUsersReducer = (state = initialState, action:any) => {
     switch (action.type) {
         case 'exist':
             return {

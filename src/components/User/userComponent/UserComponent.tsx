@@ -3,16 +3,18 @@ import { useSelector } from 'react-redux';
 import './UserComponent.css';
 import { UserPostComponent } from '../userPostComponent/UserPostComponent';
 import { CallApi } from "../../../service/callApi";
+import { Post, RootObjectUser, User } from '../../../interface/interface';
 
 
 export const UserComponent = () => {
     let service =  CallApi.getInstance();
     const [npost,setNPost] = useState();
-    const user = useSelector(state => state.singleUserReducer);
+    const userSelector =(state:any) => state.singleUserReducer
+    const user :RootObjectUser= useSelector(userSelector);
     let idUser = user['user'].id;
 
   useEffect(() => {
-    service.getPostsSingleUser(idUser).then(response=>response.json()).then((data) => setNPost(data.length));
+    service.getPostsSingleUser(idUser).then((response:any)=>response.json()).then((data:any)=> setNPost(data.length));
   }, []);
 
     return (

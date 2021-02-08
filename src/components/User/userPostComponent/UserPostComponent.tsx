@@ -2,20 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import "./UserPostComponent.css";
 import { CallApi } from "../../../service/callApi";
+import {RootObjectUser,User,Post,RootObjectPost} from '../../../interface/interface'
 
 export const UserPostComponent = () => {
   let service =  CallApi.getInstance();
-  const [post, setPost] = useState();
-  const [showModal, setShowModal] = useState(false);
-  const [imgModal, setImgModal] = useState('');
+  const [post, setPost] : any = useState();
+  const [showModal, setShowModal]:any = useState(false);
+  const [imgModal, setImgModal]:any = useState('');
 
+ 
   //stato globale user
-  const user = useSelector(state => state.singleUserReducer);
+  const userSelector  = (state: any) => state.singleUserReducer;
+  const user : RootObjectUser= useSelector(userSelector);
+  //console.log('il mio :',JSON.stringify(user));
 
-  let idUser = user['user'].id;
+  let idUser :String= user['user'].id;
 
   useEffect(() => {
-    service.getPostsSingleUser(idUser).then(response => response.json()).then((data) => setPost(data));
+    service.getPostsSingleUser(idUser).then((response:any) => response.json()).then((data: [Post]) => setPost(data));
+
   }, []);
 
   /*  const showComment=(event)=>{
@@ -26,7 +31,7 @@ export const UserPostComponent = () => {
   //post && console.log("pos2", post[0]);
   //console.log(prova)
 
-  const functionShowModal = (event) => {
+  const functionShowModal = (event:any) => {
     event.preventDefault();
     showModal ? setShowModal(false) : setShowModal(true);
     setImgModal(event.target.src);
@@ -39,7 +44,7 @@ export const UserPostComponent = () => {
 
         <div className=" container mt-5 ">
           <div className="row">
-            {post.map((item) => {
+            {post.map((item:Post) => {
               return (
                 <div key={item.id} className="col-md-4">
                   <img src={item.image} className="immagine" onClick={functionShowModal} alt='image'></img>

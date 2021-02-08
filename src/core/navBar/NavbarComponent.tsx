@@ -3,24 +3,27 @@ import "./NavbarComponent.css";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../Redux/Actions/loggedActions";
 import { Link, useHistory } from "react-router-dom";
-import jQuery from 'jquery';
+import jQuery from 'jquery'
+import { RootObjectUser, User } from "../../interface/interface";
 export const NavbarComponent = () => {
   const dispatch = useDispatch();
   let _history = useHistory();
 
-  const user = useSelector(state => state.singleUserReducer);
+  const userSelector =(state:any)=> state.singleUserReducer
+  const user :RootObjectUser= useSelector(userSelector);
   
   const functionLogut = () => {
     sessionStorage.removeItem('userEmail');
     dispatch(logout());
     _history.push('/');
   }
+  const This:any = this
 
-  jQuery(function ($) {
+  jQuery(function ($:any) {
     $(window).on("scroll", function () {
-      if ($(this).scrollTop() >= 200) {
+      if ($(This).scrollTop() >= 200) {
         $(".navbar").addClass("fixed-top");
-      } else if ($(this).scrollTop() == 0) {
+      } else if ($(This).scrollTop() == 0) {
         $(".navbar").removeClass("fixed-top");
       }
     });
@@ -32,11 +35,11 @@ export const NavbarComponent = () => {
 
       if (winWidth >= 768) {
         dropdown.on("mouseenter", function () {
-          $(this).addClass("show").children(dropdownMenu).addClass("show");
+          $(This).addClass("show").children(dropdownMenu).addClass("show");
         });
 
         dropdown.on("mouseleave", function () {
-          $(this)
+          $(This)
             .removeClass("show")
             .children(dropdownMenu)
             .removeClass("show");

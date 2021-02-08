@@ -1,7 +1,7 @@
 const initialState = {
 }
 
-export const singleUserReducer = (state = initialState, action) => {
+export const singleUserReducer = (state = initialState, action:any) => {
     switch (action.type) {
         case 'existSingleUser':
             return {
