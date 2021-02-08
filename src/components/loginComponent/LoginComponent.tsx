@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 import "./LoginComponent.css";
 import { CallApi } from "../../service/callApi";
 import { RegisterComponent } from "../registerComponent/RegisterComponent";
-import "regenerator-runtime/runtime";
 import {RootObjectUser, User} from '../../interface/interface'
 
 export const LoginComponent = () => {

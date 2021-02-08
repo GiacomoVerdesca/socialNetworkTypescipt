@@ -1,5 +1,3 @@
-import axios from "axios";
-import "regenerator-runtime/runtime";
 import { User } from "../interface/interface";
 import { myFetchGet, myFetchPost, myFetchPut } from './myFetch';
 

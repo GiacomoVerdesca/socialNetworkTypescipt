@@ -1,23 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter , Route} from "react-router-dom";
+import { Provider } from 'react-redux';
+import { Route, Switch } from "react-router";
+import { ConnectedRouter } from 'connected-react-router';
+import { configureStore, history } from './Redux/Store/store';
 import { HomeComponent } from "./components/homeComponent/HomeComponent";
 import { UserComponent } from './components/User/userComponent/UserComponent';
 import { NavbarComponent } from './core/navBar/NavbarComponent';
 
+
+const store = configureStore();
+
 function App() {
   return (
     <div>
-      <BrowserRouter>
-        <Route path="/" exact>
-          <HomeComponent />
-        </Route>
-        <Route path="/profile" exact>
-          <NavbarComponent/>
-          <UserComponent />
-        </Route>
-      </BrowserRouter>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Route path="/" exact>
+            <HomeComponent />
+          </Route>
+          <Route path="/profile" exact>
+            <NavbarComponent />
+            <UserComponent />
+          </Route>
+        </ConnectedRouter>
+      </Provider>
     </div>
   );
 }
