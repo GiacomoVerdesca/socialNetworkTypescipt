@@ -1,0 +1,43 @@
+.immagine {
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.immagineModale {
+  width: 100%;
+}
+
+.modalePost {
+  position: fixed;
+  z-index: 1000;
+  top: 14%;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.principalRow {
+  width: 85% !important;
+  background-color: white;
+}
+
+.colImg {
+  padding-left: 0px !important;
+}
+.colUser {
+  margin-top: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+}
+.username {
+  font-size: 20px;
+  margin-right: 10px;
+}
+.colComment {
+  padding-top: 15px;
+}
