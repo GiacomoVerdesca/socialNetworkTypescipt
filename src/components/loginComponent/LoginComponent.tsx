@@ -6,7 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import "./LoginComponent.css";
 import { CallApi } from "../../service/callApi";
 import { RegisterComponent } from "../registerComponent/RegisterComponent";
-import {RootObjectUser, User} from '../../interface/interface'
+import { RootObjectUser, User } from '../../interface/interface'
+import { getAllPost } from "../../Redux/Actions/allPostActions";
 
 export const LoginComponent = () => {
   //dispatch per le azioni degli stati globali
@@ -16,10 +17,10 @@ export const LoginComponent = () => {
   const logged: Boolean = useSelector(loggedSelector);
   //stato globale di tutti gli user
   const allUsersSelector = (state: any) => state.allUsersReducer;
-  const allUsers :RootObjectUser= useSelector(allUsersSelector);
+  const allUsers: RootObjectUser = useSelector(allUsersSelector);
   //stato globale dell' user cercato da allUsers
   const singleUserSelector = (state: any) => state.singleUserReducer;
-  const singleUser :RootObjectUser= useSelector(singleUserSelector);
+  const singleUser: RootObjectUser = useSelector(singleUserSelector);
 
   //stato locale dati che inserisco dal form
   const [userLogin, setUserLogin] = useState({
@@ -33,18 +34,19 @@ export const LoginComponent = () => {
   const [error, setError] = useState("");
 
   //istanza del servizio delle chiamate api
-  let service =  CallApi.getInstance();
+  let service = CallApi.getInstance();
 
   console.log("login: ", userLogin);
   console.log("single user stato globale: ", singleUser["user"]);
 
   //GIUSTO QUI HO POPOLATO LO STATO GLOBALE CON TUTTI GLI USER
   useEffect(() => {
-    
+
     dispatch(getAllUsers());
+    //  setTimeout(() => {  }, 5000);
   }, []);
 
-  const handleSubmit = async (event:any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     if (
       singleUser["user"].email === userLogin.email &&
@@ -57,8 +59,8 @@ export const LoginComponent = () => {
     }
     await service
       .getUser(userLogin.email)
-      .then((response:any) => response.json())
-      .then((data:[User]) => {
+      .then((response: any) => response.json())
+      .then((data: [User]) => {
         let tokenApi = data[0].token;
         if (tokenApi === Token) {
           dispatch(login());
@@ -70,9 +72,10 @@ export const LoginComponent = () => {
           console.log("Errore token api e token stato locale non sono uguali");
         }
       });
+      dispatch(getAllPost(allUsers));
   };
 
-  const handleChange = (event:any) => {
+  const handleChange = (event: any) => {
     setUserLogin((preUserLogin) => ({
       ...preUserLogin,
       [event.target.name]: event.target.value,
@@ -108,8 +111,8 @@ export const LoginComponent = () => {
     setTimeout(() => {
       service
         .getUser(singleUser["user"].email)
-        .then((response:any) => response.json())
-        .then((data:[User]) => {
+        .then((response: any) => response.json())
+        .then((data: [User]) => {
           let refreshtokenapi = data[0].token;
           if (refreshtokenapi !== Token) {
             dispatch(logout());
@@ -120,15 +123,15 @@ export const LoginComponent = () => {
   };
 
   //aumentare timeout per il refresh token
- 
-    
+
+
   if (logged) {
     setInterval(() => {
       refreshToken();
     }, 3000);
   } else {
     console.log("non va");
-  
+
   }
   return (
     <div>

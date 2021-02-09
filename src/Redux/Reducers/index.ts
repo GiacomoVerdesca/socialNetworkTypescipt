@@ -2,6 +2,7 @@ import { counterReducer } from "./counterReducer";
 import { loggedReducer } from "./loggedReducer";
 import { allUsersReducer } from "./allUsersReducer";
 import { singleUserReducer } from "./singleUserReducer";
+import { allPostReducer } from "./allPostReducer";
 import { combineReducers } from "redux";
 import { connectRouter } from "connected-react-router";
 
@@ -12,4 +13,5 @@ export const rootReducers = (history:any) =>
     loggedReducer,
     allUsersReducer,
     singleUserReducer,
+    allPostReducer
   });

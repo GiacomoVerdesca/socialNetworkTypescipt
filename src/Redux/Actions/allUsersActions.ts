@@ -1,4 +1,3 @@
-import { AnyAaaaRecord } from 'dns';
 import { User } from '../../interface/interface';
 import { CallApi } from '../../service/callApi';
 let service =  CallApi.getInstance();

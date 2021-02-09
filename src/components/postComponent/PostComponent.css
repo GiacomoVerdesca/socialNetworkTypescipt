@@ -1,11 +1,11 @@
-.immagine{
+.immaginePost{
     width: 100%;
     border-radius: 3%;
 }
+
 .post{
     width: auto;
     border: lightgray 1px solid ;
-    
     border-radius: 2%;
 }
 .like{
@@ -16,7 +16,6 @@
     color: skyblue;
 }
 .description{
-    padding-left: 3%;
-    padding-right: 3%;
+    padding: 3%;
     max-width: 100%;
 }
