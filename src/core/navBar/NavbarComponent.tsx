@@ -17,9 +17,10 @@ export const NavbarComponent = () => {
     dispatch(logout());
     _history.push('/');
   }
-  const This:any = this
+  
 
   jQuery(function ($:any) {
+    const This:any = this;
     $(window).on("scroll", function () {
       if ($(This).scrollTop() >= 200) {
         $(".navbar").addClass("fixed-top");

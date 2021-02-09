@@ -2,26 +2,32 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import "./PostComponent.css";
 import { CallApi } from "../../service/callApi";
-import { Post, RootObjectUser, User } from "../../interface/interface";
+import { Post, User } from "../../interface/interface";
 
 export const PostComponent = () => {
   let service = CallApi.getInstance();
   const [post, setPost] = useState([]);
-const allUsersSelector  = (state:any) => state.allUsersReducer
-  const allUsers : any = useSelector(allUsersSelector);
 
-  let allId :String = allUsers['users'].map((item :User) => { return item.id });
+  const allUsersSelector = (state: any) => state.allUsersReducer;
+  const allUsers: any = useSelector(allUsersSelector);
+
+  let allId: String = allUsers['users'].map((item: User) => { return item.id });
+
   //stato globale user
-  // useEffect(() => {
-  //   let postData = [];
-  //   for (let i = 1; i <= allId.length; i++) {
-  //     service.getPostsSingleUser(i).then(response => response.json()).then((data) => {
-  //       let newPostData = Object.assign(postData, data)
-  //     });
-  //   }
-  //   console.log('datachiamata', postData)
-  //   setPost(postData);
-  // }, []);
+
+  useEffect(() => {
+    let newData: any = [];
+    for (let i = 1; i <= allId.length; i++) {
+      service.getPostsSingleUser(i).then((response: any) => response.json()).then((data: any) => {
+        for (let i = 0; i < data.length; i++) {
+          newData = [...newData,data[i]]
+        }
+        setPost(newData);
+      });
+    }
+  }, []);
+  console.log('datachiamatastato', post);
+
   /*  const showComment=(event)=>{
     event.preventDefault();
     return console.log("commet")
@@ -33,9 +39,9 @@ const allUsersSelector  = (state:any) => state.allUsersReducer
   return (
     <div className="mt-5 mb-5">
       {post &&
-        post.map((item:Post) => {
+        post.map((item: Post,index: number) => {
           return (
-            <div key={item.id} className=" container mt-3 ">
+            <div key={index} className=" container mt-3 ">
               <div className=" row justify-content-md-center  ">
                 <div className="col-12 col-xl-5 post">
                   <img src={item.image} className=" pt-2 immagine"></img>

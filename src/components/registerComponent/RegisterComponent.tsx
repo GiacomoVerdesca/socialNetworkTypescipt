@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { CallApi } from "../../service/callApi";
 import "./RegisterComponent.css";
+
 export const RegisterComponent = () => {
-  let service =  CallApi.getInstance();
+
+  let service = CallApi.getInstance();
   const [viewModal, setViewModal] = useState(false);
   const [register, setRegister] = useState({
     name: "",
@@ -13,21 +15,20 @@ export const RegisterComponent = () => {
     password: "",
   });
 
-  const showModal = (event:any) => {
+  const showModal = (event: any) => {
     event.preventDefault();
     viewModal ? setViewModal(false) : setViewModal(true);
   };
 
-  const handleSubmit = (event:any) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
-    service.postUser(register) ;
+    service.postUser(register);
     setViewModal(false);
     //modificare con async ecc.
-    setTimeout(()=>{window.document.location.href=window.document.location.href},500)
-    
+    setTimeout(() => { window.document.location.href = window.document.location.href }, 500);
   };
 
-  const handleChange = (event:any) => {
+  const handleChange = (event: any) => {
     event.preventDefault();
     setRegister((prev) => ({
       ...prev,
